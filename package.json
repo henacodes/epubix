@@ -1,0 +1,48 @@
+{
+  "name": "epubix",
+  "version": "0.1.0",
+  "description": "A simple TypeScript utility library for parsing EPUB files ",
+  "author": "Henok",
+  "license": "MIT",
+  "homepage": "https://github.com/henacodes/epubix#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/henacodes/epubix.git"
+  },
+  "bugs": {
+    "url": "https://github.com/enoch/epub-utils/issues"
+  },
+  "keywords": [
+    "epub",
+    "ebook",
+    "parser",
+    "pdf"
+  ],
+  "type": "module",
+  "main": "./dist/epubix.umd.cjs",
+  "module": "./dist/epubix.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/epubix.js",
+      "require": "./dist/epubix.umd.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@types/node": "^24.6.2",
+    "typescript": "~5.9.3",
+    "vite": "^7.1.7"
+  },
+  "dependencies": {
+    "jszip": "^3.10.1",
+    "vite-plugin-dts": "^4.5.4"
+  }
+}
