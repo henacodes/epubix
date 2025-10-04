@@ -21,9 +21,9 @@
   "type": "module",
   "main": "./dist/epubix.umd.cjs",
   "module": "./dist/epubix.js",
-  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/epubix.js",
       "require": "./dist/epubix.umd.cjs"
     },
