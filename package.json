@@ -1,6 +1,6 @@
 {
   "name": "epubix",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A simple TypeScript utility library for parsing EPUB files ",
   "author": "Henok",
   "license": "MIT",
@@ -26,7 +26,8 @@
     ".": {
       "import": "./dist/epubix.js",
       "require": "./dist/epubix.umd.cjs"
-    }
+    },
+    "./*": "./dist/*"
   },
   "files": [
     "dist"

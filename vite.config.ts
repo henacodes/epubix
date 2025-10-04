@@ -10,6 +10,16 @@ export default defineConfig({
       name: "epubix",
       fileName: "epubix",
     },
+    rollupOptions: {
+      external: ["jszip"],
+      output: {
+        globals: {
+          jszip: "JSZip",
+        },
+      },
+    },
+    outDir: "dist",
   },
+
   plugins: [dts()],
 });
