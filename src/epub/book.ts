@@ -1,3 +1,4 @@
+import { Epub } from "./Epub";
 import { loadEpub, getOpfPath } from "./loader";
 import { parseOpf } from "./opf";
 import { parseToc } from "./toc";
@@ -5,7 +6,7 @@ import type { EpubBook, EpubChapter, EpubResource } from "./types";
 
 export async function loadEpubBook(
   file: File | Blob | ArrayBuffer
-): Promise<EpubBook> {
+): Promise<Epub> {
   const zip = await loadEpub(file);
   const opfPath = await getOpfPath(zip);
   const opfData = await parseOpf(zip, opfPath);
@@ -44,5 +45,7 @@ export async function loadEpubBook(
   // toc
   const toc = await parseToc(zip, opfData);
 
-  return { metadata, chapters, resources, toc };
+  const book = { metadata, chapters, resources, toc };
+
+  return new Epub(zip, book);
 }

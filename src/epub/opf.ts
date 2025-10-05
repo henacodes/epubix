@@ -10,17 +10,6 @@ export async function parseOpf(zip: JSZip, opfPath: string): Promise<OpfData> {
   const doc = parser.parseFromString(contentText, "application/xml");
 
   const metadataNode = doc.querySelector("metadata");
-  const metadata: EpubMetadata = {
-    title: metadataNode?.querySelector("title")?.textContent || undefined,
-    author: metadataNode?.querySelector("creator")?.textContent || undefined,
-    language: metadataNode?.querySelector("language")?.textContent || undefined,
-    identifier:
-      metadataNode?.querySelector("identifier")?.textContent || undefined,
-    cover:
-      metadataNode
-        ?.querySelector("meta[name='cover']")
-        ?.getAttribute("content") || undefined,
-  };
 
   const manifest: Record<string, ManifestItem> = {};
   doc.querySelectorAll("manifest > item").forEach((item) => {
@@ -29,13 +18,31 @@ export async function parseOpf(zip: JSZip, opfPath: string): Promise<OpfData> {
     const mediaType = item.getAttribute("media-type") || "";
     if (id && href) manifest[id] = { id, href, mediaType };
   });
+  const opfFolder = opfPath.substring(0, opfPath.lastIndexOf("/") + 1);
+
+  const metaCoverId = metadataNode
+    ?.querySelector("meta[name='cover']")
+    ?.getAttribute("content");
+
+  let coverPath: string | undefined;
+
+  if (metaCoverId && manifest[metaCoverId]) {
+    coverPath = opfFolder + manifest[metaCoverId].href;
+  }
+
+  const metadata: EpubMetadata = {
+    title: metadataNode?.querySelector("title")?.textContent || undefined,
+    author: metadataNode?.querySelector("creator")?.textContent || undefined,
+    language: metadataNode?.querySelector("language")?.textContent || undefined,
+    identifier:
+      metadataNode?.querySelector("identifier")?.textContent || undefined,
+    cover: coverPath,
+  };
 
   const spine: SpineItem[] = Array.from(doc.querySelectorAll("spine > itemref"))
     .map((i) => i.getAttribute("idref"))
     .filter(Boolean)
     .map((idref) => ({ idref: idref! }));
-
-  const opfFolder = opfPath.substring(0, opfPath.lastIndexOf("/") + 1);
 
   return { metadata, manifest, spine, opfFolder };
 }
