@@ -1,13 +1,12 @@
+import { getCoverImageBase64 } from "./coverImage";
 import { Epub } from "./Epub";
-import { loadEpub, getOpfPath } from "./loader";
-import { parseOpf } from "./opf";
+import { extractEpub, getOpfPath } from "./loader";
+import { parseOpf, parseOpfMetadata } from "./opf";
 import { parseToc } from "./toc";
-import type { EpubBook, EpubChapter, EpubResource } from "./types";
+import type { EpubChapter, EpubInputTypes, EpubResource } from "./types";
 
-export async function loadEpubBook(
-  file: File | Blob | ArrayBuffer
-): Promise<Epub> {
-  const zip = await loadEpub(file);
+export async function loadEpubBook(file: EpubInputTypes): Promise<Epub> {
+  const zip = await extractEpub(file);
   const opfPath = await getOpfPath(zip);
   const opfData = await parseOpf(zip, opfPath);
   const { metadata, manifest, spine, opfFolder } = opfData;
@@ -48,4 +47,19 @@ export async function loadEpubBook(
   const book = { metadata, chapters, resources, toc };
 
   return new Epub(zip, book);
+}
+export async function loadEpubMetadata(file: EpubInputTypes) {
+  const zip = await extractEpub(file);
+  const opfPath = await getOpfPath(zip);
+
+  let metadata = await parseOpfMetadata(zip, opfPath);
+  let coverImageBase64: string | null = null;
+  if (metadata.cover) {
+    coverImageBase64 = await getCoverImageBase64(zip, metadata.cover);
+  }
+
+  return {
+    ...metadata,
+    coverBase64: coverImageBase64,
+  };
 }

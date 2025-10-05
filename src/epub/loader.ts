@@ -1,6 +1,6 @@
 import JSZip from "jszip";
 
-export async function loadEpub(
+export async function extractEpub(
   file: File | Blob | ArrayBuffer
 ): Promise<JSZip> {
   let arrayBuffer: ArrayBuffer;

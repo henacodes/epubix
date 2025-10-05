@@ -1,3 +1,5 @@
+export type EpubInputTypes = File | ArrayBuffer | Blob;
+
 export interface EpubMetadata {
   title?: string;
   author?: string;

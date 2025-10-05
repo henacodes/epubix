@@ -1,5 +1,6 @@
 import JSZip from "jszip";
 import type { EpubBook } from "./types";
+import { getCoverImageBase64 } from "./coverImage";
 
 export class Epub implements EpubBook {
   metadata: EpubBook["metadata"];
@@ -25,20 +26,10 @@ export class Epub implements EpubBook {
    * Returns the cover image as a data URL (base64) if available.
    */
   async getCoverImageData(): Promise<string | null> {
-    const coverPath = this.metadata.cover;
-    if (!coverPath) return null;
-
-    const file = this.zip.file(coverPath);
-    if (!file) return null;
-
-    const base64 = await file.async("base64");
-
-    // Guess mime type from extension
-    const ext = coverPath.split(".").pop()?.toLowerCase();
-    const mime =
-      ext === "png" ? "image/png" : ext === "gif" ? "image/gif" : "image/jpeg";
-
-    return `data:${mime};base64,${base64}`;
+    if (!this.metadata.cover) {
+      return null;
+    }
+    return getCoverImageBase64(this.zip, this.metadata.cover);
   }
 
   /**
