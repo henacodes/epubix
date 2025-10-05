@@ -1,2 +1,2 @@
-export { loadEpubBook, loadEpubMetadata } from "./epub";
+export { loadEpubBook, loadEpubMetadata, Epub } from "./epub";
 export * from "./epub/types";
