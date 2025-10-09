@@ -79,15 +79,3 @@ This resolves:
 ## 🤝 Contributing
 
 Contributions welcome — bug reports, tests or PRs. If you add features that affect path normalization, please include unit tests to cover `resolveHrefPath` and `Epub.resolveHref`.
-
----
-
-If you'd like, I can:
-
-- add CI (GitHub Actions) to run the tests on push/PR,
-- add an example React component to the repo demonstrating TOC rendering + fragment scroll,
-- export the href-utils from the package entry for direct reuse in UIs.
-
-```
-
-```
