@@ -44,7 +44,13 @@ export async function loadEpubBook(file: EpubInputTypes): Promise<Epub> {
   // toc
   const toc = await parseToc(zip, opfData);
 
-  const book = { metadata, chapters, resources, toc };
+  const book = {
+    metadata,
+    chapters,
+    resources,
+    toc,
+    opfFolder: opfData.opfFolder,
+  };
 
   return new Epub(zip, book);
 }

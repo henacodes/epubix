@@ -49,4 +49,5 @@ export interface EpubBook {
   chapters: EpubChapter[];
   resources: Record<string, EpubResource>;
   toc: TocEntry[];
+  opfFolder?: string;
 }

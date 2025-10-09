@@ -1,6 +1,12 @@
 import JSZip from "jszip";
 import type { EpubMetadata, ManifestItem, SpineItem, OpfData } from "./types";
 
+export function getOpfFolder(opfPath: string): string {
+  const idx = opfPath.lastIndexOf("/");
+  if (idx === -1) return "";
+  return opfPath.slice(0, idx + 1).replace(/\/+/g, "/");
+}
+
 export async function parseOpfMetadata(
   zip: JSZip,
   opfPath: string
@@ -64,7 +70,7 @@ export async function parseOpf(zip: JSZip, opfPath: string): Promise<OpfData> {
     .filter(Boolean)
     .map((idref) => ({ idref: idref! }));
 
-  const opfFolder = opfPath.substring(0, opfPath.lastIndexOf("/") + 1);
+  const opfFolder = getOpfFolder(opfPath);
 
   return { metadata, manifest, spine, opfFolder };
 }
