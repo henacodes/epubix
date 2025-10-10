@@ -1,6 +1,6 @@
 {
   "name": "epubix",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "A simple TypeScript utility library for parsing EPUB files ",
   "author": "Henok",
   "license": "MIT",
@@ -21,6 +21,7 @@
   "type": "module",
   "main": "./dist/epubix.umd.cjs",
   "module": "./dist/epubix.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -34,7 +35,7 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
     "preview": "vite preview",
     "test": "vitest",
     "test:run": "vitest run",
