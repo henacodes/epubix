@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.2.5] - 2025-10-12
+
+### Fixed
+
+- Fix incorrect TOC nesting for EPUB2 NCX files: only immediate `<navPoint>` children are now treated as children (previous logic inadvertently collected descendant navPoints and produced duplicated / mis-nested entries).
+
 ## [0.2.3] - 2025-10-09
 
 ### Added

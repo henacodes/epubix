@@ -6,7 +6,7 @@ import dts from "vite-plugin-dts";
 export default defineConfig({
   plugins: [
     dts({
-      insertTypesEntry: true, // add "types" entry to package.json automatically (optional)
+      insertTypesEntry: true,
       outDir: "dist",
     }),
   ],
